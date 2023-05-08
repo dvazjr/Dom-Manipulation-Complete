@@ -43,3 +43,4 @@ restore those file's initial state with ```git restore <fileName>``` command.
 - Make sure your code works as shown in the INTRO video
 - Commit and push the changes to your repository (the one you have created on step 2 of GETTING STARTED).
 - Submit the txt file with a repo link on the exercise page in Devslopes course.
+# Dom-Manipulation-Complete
