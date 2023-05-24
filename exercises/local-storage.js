@@ -38,3 +38,42 @@
  */
 
 // Your code goes here...
+
+function setFavoriteStatus(item, isFav) {
+  let favs = localStorage.getItem("favorites");
+  favs = favs ? JSON.parse(favs) : [];
+
+  // Update item color
+  item.style.backgroundColor = isFav ? "red" : "white";
+
+  // Update local storage
+  const index = favs.indexOf(item.id);
+  if (isFav && index === -1) {
+    // Add to favorites
+    favs.push(item.id);
+  } else if (!isFav && index !== -1) {
+    // Remove from favorites
+    favs.splice(index, 1);
+  }
+
+  localStorage.setItem("favorites", JSON.stringify(favs));
+}
+const container = document.querySelector(".cardsContainer");
+container.addEventListener("click", function (e) {
+  const item = e.target;
+  if (item.classList.contains("card")) {
+    const isFav = item.style.backgroundColor === "red";
+    setFavoriteStatus(item, !isFav);
+  }
+});
+window.addEventListener("load", function () {
+  const favs = localStorage.getItem("favorites");
+  if (favs) {
+    JSON.parse(favs).forEach((id) => {
+      const item = document.getElementById(id);
+      if (item) {
+        setFavoriteStatus(item, true);
+      }
+    });
+  }
+});

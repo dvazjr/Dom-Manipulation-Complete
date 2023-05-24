@@ -2,7 +2,7 @@
  * SORTING NODES WITHIN A CONTAINER
  * Please, make sure to read the following files in the exercises-info folder before you start
  * * 01 SelectNodes.md
-*/
+ */
 
 /**
  * @task
@@ -12,8 +12,7 @@
  */
 
 // Your code goes here...
-
-
+const allItems = document.querySelectorAll(".item");
 
 /**
  * @task
@@ -23,8 +22,7 @@
  * */
 
 // Your code goes here
-
-
+const main = document.querySelector("#main");
 
 /**
  * @task
@@ -34,8 +32,7 @@
  */
 
 // Your code goes here
-
-
+const favs = document.querySelector("#favs");
 
 /**
  * @task
@@ -48,7 +45,20 @@
 
 // Your code goes here
 
+function updateCollections(id, direction) {
+  const item = document.getElementById(id);
+  const icon = item.querySelector("i");
 
+  if (direction === "toFavs") {
+    favs.appendChild(main.removeChild(item));
+    icon.className = "fa-solid fa-heart-crack";
+  } else if (direction === "toMain") {
+    main.appendChild(favs.removeChild(item));
+    icon.className = "fa-solid fa-heart-circle-plus";
+  } else {
+    console.error("Error");
+  }
+}
 
 /**
  * @task
@@ -66,4 +76,20 @@
 
 // Your code goes here...
 
+allItems.forEach((item) => {
+  item.addEventListener("click", () => {
+    let parentId = item.parentNode.id;
+    let itemId = item.id;
+    let direction;
 
+    if (parentId === "main") {
+      direction = "toFavs";
+    } else if (parentId === "favs") {
+      direction = "toMain";
+    } else {
+      console.error("Invalid parent id");
+      return;
+    }
+    return updateCollections(itemId, direction);
+  });
+});
